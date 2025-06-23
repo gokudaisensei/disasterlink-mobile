@@ -8,7 +8,7 @@ const DrawerLayout = () => {
   return (
     <Drawer>
       <Drawer.Screen
-        name="index"
+        name="home"
         options={{
           headerTitle: 'Home',
           drawerLabel: 'Home',
