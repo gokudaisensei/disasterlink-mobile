@@ -1,20 +1,37 @@
 import { View, Text, Pressable } from 'react-native';
-import {
-  ChatBubbleLeftIcon,
-  ExclamationTriangleIcon,
-  ClipboardIcon,
-  UserIcon,
-  MapPinIcon,
-  MapIcon,
-} from 'react-native-heroicons/solid';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const actions = [
-  { icon: ChatBubbleLeftIcon, label: 'Send Message' },
-  { icon: ExclamationTriangleIcon, label: 'Broadcast SOS', color: 'text-red-500' },
-  { icon: ClipboardIcon, label: 'Report Resource Need' },
-  { icon: UserIcon, label: 'Share My Status' },
-  { icon: MapPinIcon, label: 'Nearby Alerts' },
-  { icon: MapIcon, label: 'Community Map' },
+  {
+    icon: (props: any) => <MaterialIcons name="chat" {...props} />,
+    label: 'Send Message',
+    color: 'text-blue-500',
+  },
+  {
+    icon: (props: any) => <MaterialIcons name="sos" {...props} />,
+    label: 'Broadcast SOS',
+    color: 'text-red-500',
+  },
+  {
+    icon: (props: any) => <MaterialIcons name="assignment" {...props} />,
+    label: 'Report Resource Need',
+    color: 'text-blue-500',
+  },
+  {
+    icon: (props: any) => <MaterialIcons name="person" {...props} />,
+    label: 'Share My Status',
+    color: 'text-blue-500',
+  },
+  {
+    icon: (props: any) => <MaterialIcons name="location-on" {...props} />,
+    label: 'Nearby Alerts',
+    color: 'text-blue-500',
+  },
+  {
+    icon: (props: any) => <MaterialCommunityIcons name="map" {...props} />,
+    label: 'Community Map',
+    color: 'text-blue-500',
+  },
 ];
 
 export default function QuickActionsGrid() {
@@ -24,7 +41,10 @@ export default function QuickActionsGrid() {
         <Pressable
           key={i}
           className="m-1 aspect-square w-[30%] items-center justify-center rounded-xl bg-white shadow-md">
-          <action.icon size={28} className={`${action.color ?? 'text-blue-500'}`} />
+          {action.icon({
+            size: 28,
+            color: action.color === 'text-red-500' ? '#ef4444' : '#3b82f6',
+          })}
           <Text className="mt-1 text-center text-xs">{action.label}</Text>
         </Pressable>
       ))}
