@@ -2,6 +2,7 @@ import { View, Text, Pressable, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { create } from 'zustand';
+import { useEffect } from 'react';
 
 // Zustand store for location
 type LocationState = {
@@ -32,10 +33,9 @@ export default function LocationSelector() {
   const locationName = useLocationStore((state) => state.locationName);
   const setLocationName = useLocationStore((state) => state.setLocationName);
 
-  // Optionally, on mount, try to get location permission and update location
-  // useEffect(() => {
-  //   handleUpdateLocation();
-  // }, []);
+  useEffect(() => {
+    handleUpdateLocation();
+  }, []);
 
   const handleUpdateLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
