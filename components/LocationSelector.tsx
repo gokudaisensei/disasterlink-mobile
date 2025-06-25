@@ -82,7 +82,12 @@ export default function LocationSelector() {
             <Text className="text-base font-medium">{locationName}</Text>
           )}
         </View>
-        <Pressable className="rounded-lg bg-gray-100 px-3 py-1" onPress={handleUpdateLocation} disabled={isLoading}>
+        <Pressable
+          className="rounded-lg bg-gray-100 px-3 py-1"
+          onPress={handleUpdateLocation}
+          disabled={isLoading}
+          accessibilityLabel={isLoading ? 'Updating location' : 'Update location'}
+        >
           <Text className="text-sm font-semibold">{isLoading ? 'Updating...' : 'Update'}</Text>
         </Pressable>
       </View>
