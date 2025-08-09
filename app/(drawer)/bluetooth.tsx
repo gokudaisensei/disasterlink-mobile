@@ -10,23 +10,23 @@ export default function BluetoothScreen() {
         <HeaderBar />
         <Greeting />
         <View className="px-4 py-6">
-          <View className="bg-white rounded-xl shadow p-4 mb-6 flex-row items-center justify-between">
+          <View className="mb-6 flex-row items-center justify-between rounded-xl bg-white p-4 shadow">
             <View>
               <Text className="text-lg font-semibold text-gray-800">Bluetooth Status</Text>
-              <Text className="text-sm text-gray-500 mt-1">Disconnected</Text>
+              <Text className="mt-1 text-sm text-gray-500">Disconnected</Text>
             </View>
             <Ionicons name="bluetooth" size={32} color="#3b82f6" />
           </View>
-          <Text className="text-base font-medium text-gray-700 mb-2">Nearby Devices</Text>
-          <View className="bg-white rounded-lg shadow p-3 mb-4">
+          <Text className="mb-2 text-base font-medium text-gray-700">Nearby Devices</Text>
+          <View className="mb-4 rounded-lg bg-white p-3 shadow">
             <Text className="text-gray-600">No devices found. Tap scan to search.</Text>
           </View>
-          <TouchableOpacity className="bg-blue-500 rounded-lg py-3 items-center mt-2">
-            <Text className="text-white font-semibold">Scan for Devices</Text>
+          <TouchableOpacity className="mt-2 items-center rounded-lg bg-blue-500 py-3">
+            <Text className="font-semibold text-white">Scan for Devices</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <TouchableOpacity className="absolute bottom-6 right-6 bg-blue-600 rounded-full p-4 shadow-lg">
+      <TouchableOpacity className="absolute bottom-6 right-6 rounded-full bg-blue-600 p-4 shadow-lg">
         <Ionicons name="refresh" size={28} color="#fff" />
       </TouchableOpacity>
     </View>

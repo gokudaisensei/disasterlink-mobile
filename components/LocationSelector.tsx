@@ -2,7 +2,7 @@ import { View, Text, Pressable, Alert, ActivityIndicator } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { create } from 'zustand';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 // Extend Zustand store for last updated state
 type LocationState = {
@@ -45,11 +45,7 @@ export default function LocationSelector() {
   const lastUpdated = useLocationStore((state) => state.lastUpdated);
   const setLastUpdated = useLocationStore((state) => state.setLastUpdated);
 
-  useEffect(() => {
-    handleUpdateLocation();
-  }, []);
-
-  const handleUpdateLocation = async () => {
+  const handleUpdateLocation = useCallback(async () => {
     setLoading(true);
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
@@ -63,13 +59,17 @@ export default function LocationSelector() {
       const city = await getCityNameFromCoords(loc.coords.latitude, loc.coords.longitude);
       setLocationName(city);
       setLastUpdated(new Date().toLocaleString());
-    } catch (e) {
+    } catch {
       Alert.alert('Error', 'Could not fetch location.');
       setLastUpdated(null);
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setLocationName, setLastUpdated]);
+
+  useEffect(() => {
+    handleUpdateLocation();
+  }, [handleUpdateLocation]);
 
   return (
     <View className="mx-4 mt-4 rounded-xl border border-gray-200 bg-white p-3">
@@ -86,13 +86,12 @@ export default function LocationSelector() {
           className="rounded-lg bg-gray-100 px-3 py-1"
           onPress={handleUpdateLocation}
           disabled={isLoading}
-          accessibilityLabel={isLoading ? 'Updating location' : 'Update location'}
-        >
+          accessibilityLabel={isLoading ? 'Updating location' : 'Update location'}>
           <Text className="text-sm font-semibold">{isLoading ? 'Updating...' : 'Update'}</Text>
         </Pressable>
       </View>
       {lastUpdated && (
-        <Text className="text-xs text-gray-500 mt-2">Last updated: {lastUpdated}</Text>
+        <Text className="mt-2 text-xs text-gray-500">Last updated: {lastUpdated}</Text>
       )}
     </View>
   );
